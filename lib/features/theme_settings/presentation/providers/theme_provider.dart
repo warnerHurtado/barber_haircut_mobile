@@ -1,7 +1,7 @@
 import 'package:barber_haircut_mobile/config/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final isDarkModeProvider = StateProvider<bool>((ref) => false);
+// final isDarkModeProvider = StateProvider<bool>((ref) => false);
 
 //* con este el dato es inmutable
 final colorsListProvider = Provider((ref) => colorList);

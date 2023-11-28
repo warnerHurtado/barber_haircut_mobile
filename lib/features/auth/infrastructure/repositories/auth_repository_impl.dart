@@ -8,8 +8,8 @@ class AuthRepositoryImp extends AuthRepository {
       : datasourse = datasourse ?? AuthDataSourceImp();
 
   @override
-  Future<User> chekAuthStatus() {
-    return datasourse.chekAuthStatus();
+  Future<User> checkAuthStatus(String token) {
+    return datasourse.checkAuthStatus(token);
   }
 
   @override

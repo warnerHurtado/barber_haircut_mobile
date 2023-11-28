@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:barber_haircut_mobile/features/settings/presentation/providers/theme_provider.dart';
-import 'package:go_router/go_router.dart';
+import '/features/shared/shared.dart';
+import '/features/theme_settings/presentation/providers/theme_provider.dart';
 
 class ThemeSettingsScreen extends ConsumerWidget {
   const ThemeSettingsScreen({super.key});
@@ -12,8 +13,8 @@ class ThemeSettingsScreen extends ConsumerWidget {
     // final bool isDarkMode = ref.watch(isDarkModeProvider);
     final bool isDarkMode = ref.watch(appThemeProvider).isDarkMode;
 
-    return Center(
-      child: Scaffold(
+    return GeneralMenus(
+      body: Scaffold(
         appBar: AppBar(title: const Text('the AppBar'), actions: [
           IconButton(
               onPressed: () {
@@ -29,7 +30,6 @@ class ThemeSettingsScreen extends ConsumerWidget {
         body: GestureDetector(
           onTap: () => context.go('/login'),
           child: const Text('Login')),
-        drawer: Container(),
         endDrawer: Container(),
       ),
     );

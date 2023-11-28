@@ -10,15 +10,33 @@ class AuthDataSourceImp extends AuthDatasourse {
   ));
 
   @override
-  Future<User> chekAuthStatus() {
-    // TODO: implement chekAuthStatus
-    throw UnimplementedError();
+  Future<User> checkAuthStatus(String token) async {
+    try {
+      final response = await dio.post('/api/auth/check-status',
+          options: Options(headers: {'x-token': token}));
+
+      final Map<String, dynamic> userMap = {
+        ...response.data['user'],
+        'token': response.data['token']
+      };
+
+      final user = UserMapper.userJsonToEntity(userMap);
+
+      return user;
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        throw WrongCredentials();
+      }
+      throw Exception();
+    } catch (e) {
+      throw Exception();
+    }
   }
 
   @override
   Future<User> login(String name, String password) async {
     try {
-           final response = await dio
+      final response = await dio
           .post('/api/auth/login', data: {'email': name, 'password': password});
 
       final Map<String, dynamic> userMap = {
@@ -32,7 +50,7 @@ class AuthDataSourceImp extends AuthDatasourse {
     } on DioException catch (e) {
       if (e.response?.statusCode == 400) {
         throw WrongCredentials();
-      } 
+      }
 
       if (e.type == DioExceptionType.connectionTimeout) {
         throw ConnectionTimeout();
