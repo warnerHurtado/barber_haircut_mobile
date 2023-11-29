@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '/features/auth/presentation/providers/auth_provider.dart';
+import '/features/shop/presentation/providers/providers.dart';
+import '/features/auth/presentation/providers/providers.dart';
 import '/features/shared/shared.dart';
 
 class ShopScreen extends ConsumerStatefulWidget {
@@ -12,8 +13,12 @@ class ShopScreen extends ConsumerStatefulWidget {
 }
 
 class ShopScreenState extends ConsumerState<ShopScreen> {
+
   @override
   Widget build(BuildContext context) {
+  final shops = ref.watch(shopsProvider).shops;
+  print(shops);
+
     return GeneralMenus(
       body: Scaffold(
         body: Center(
