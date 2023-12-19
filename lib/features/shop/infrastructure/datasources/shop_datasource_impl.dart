@@ -30,10 +30,22 @@ class ShopDatasourceImpl extends ShopDatasource {
       throw Exception();
     }
   }
-  
+
   @override
-  Future<Shop> getShopById(String id) {
-    // TODO: implement getShopById
-    throw UnimplementedError();
+  Future<Shop> getShopById(String shopId) async {
+    try {
+      final response = await dio.get('/api/search/companies/$shopId');
+      final ShopsResponse shopResponse = ShopsResponse.fromJson(response.data);
+      final Shop shop = shopResponse.companies[0];
+
+      return shop;
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        throw WrongCredentials();
+      }
+      throw Exception();
+    } catch (e) {
+      throw Exception();
+    }
   }
 }
