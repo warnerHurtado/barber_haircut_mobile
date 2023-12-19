@@ -1,8 +1,8 @@
-import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/providers/providers.dart';
-import '../../features/shop/presentation/screens/shop_screen.dart';
+import '../../features/shop/presentation/screens/screens.dart';
 import '../../features/theme_settings/presentation/screens/theme_settings_screen.dart';
 import '../../features/auth/presentation/screens/screens.dart';
 
@@ -19,7 +19,7 @@ final goRouterProvider = Provider((ref) {
         path: '/splash',
         builder: (context, state) => const CheckAuthStatusScreen(),
       ),
-      GoRoute(path: '/', builder: (context, state) => const ShopScreen()),
+      GoRoute(path: '/', builder: (context, state) => const ShopsScreen()),
       GoRoute(
         path: '/login',
         builder: (context, state) => const LoginScreen(),
@@ -32,6 +32,11 @@ final goRouterProvider = Provider((ref) {
         path: '/theme-settings',
         builder: (context, state) => const ThemeSettingsScreen(),
       ),
+      GoRoute(path: '/shop/:id', builder: (context, state) {
+        final shopId = state.pathParameters['id']!;
+
+        return ShopScreen(shopId: shopId);
+      }),
     ],
     redirect: (context, state) {
       final isGoingTo = state.fullPath;

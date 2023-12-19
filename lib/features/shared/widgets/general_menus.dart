@@ -1,3 +1,5 @@
+import 'package:barber_haircut_mobile/features/auth/presentation/providers/providers.dart';
+import 'package:barber_haircut_mobile/features/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -59,7 +61,23 @@ class GeneralMenusState extends ConsumerState<GeneralMenus> {
                 icon: Icon(item.icon),
                 label: Text(item.title),
               ),
-            )
+            ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(28, 16, 28, 10),
+              child: Divider(),
+            ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(28, 10, 16, 10),
+              child: Text('Otras opciones'),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: CustomFilledButton(
+                  onPressed: () {
+                    ref.read(authProvider.notifier).logout();
+                  },
+                  text: 'Cerrar sesión'),
+            ),
           ]),
       endDrawer: NavigationDrawer(
           selectedIndex: ref.watch(navDrawerIndexRightProvider),

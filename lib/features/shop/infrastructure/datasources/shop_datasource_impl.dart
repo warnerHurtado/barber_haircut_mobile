@@ -30,4 +30,10 @@ class ShopDatasourceImpl extends ShopDatasource {
       throw Exception();
     }
   }
+  
+  @override
+  Future<Shop> getShopById(String id) {
+    // TODO: implement getShopById
+    throw UnimplementedError();
+  }
 }
